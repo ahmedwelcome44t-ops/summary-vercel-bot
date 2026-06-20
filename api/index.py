@@ -8,9 +8,9 @@ app = Flask(__name__)
 TOKEN = os.environ.get('TELEGRAM_TOKEN')
 bot = telebot.TeleBot(TOKEN, threaded=False)
 
-# إعداد ذكاء Gemini الاصطناعي
+# إعداد ذكاء Gemini الاصطناعي - تم التحديث للنموذج المستقر والأحدث
 genai.configure(api_key=os.environ.get('GEMINI_API_KEY'))
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-2.0-flash')
 
 @app.route('/api', methods=['POST'])
 def respond():
@@ -36,7 +36,7 @@ def handle_message(message):
         response = model.generate_content(prompt)
         bot.reply_to(message, response.text)
     except Exception as e:
-        # هنا البوت هيطبع لك كود الخطأ الحقيقي مباشرة على تليجرام
+        # طباعة كود الخطأ لو حدثت مشكلة مجدداً
         bot.reply_to(message, f"يا غالي حصلت مشكلة في الاتصال بجوجل، والسبب هو:\n\n{str(e)}")
 
 @app.route('/')
