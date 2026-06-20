@@ -36,7 +36,8 @@ def handle_message(message):
         response = model.generate_content(prompt)
         bot.reply_to(message, response.text)
     except Exception as e:
-        bot.reply_to(message, "عذراً يا غالي، حصل ضغط على السيرفر، جرب تبعت الرسالة تاني.")
+        # هنا البوت هيطبع لك كود الخطأ الحقيقي مباشرة على تليجرام
+        bot.reply_to(message, f"يا غالي حصلت مشكلة في الاتصال بجوجل، والسبب هو:\n\n{str(e)}")
 
 @app.route('/')
 def index():
